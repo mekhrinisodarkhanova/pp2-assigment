@@ -1,18 +1,4 @@
-import csv
-from connect import connect
-
-def insert_from_csv(filename):
-    conn = connect()
-    cur = conn.cursor()
-
-    with open(filename, newline='', encoding='utf-8') as file:
-        reader = csv.reader(file)
-        for row in reader:
-            cur.execute(
-                "INSERT INTO phonebook (first_name, phone) VALUES (%s, %s) ON CONFLICT DO NOTHING",
-                (row[0], row[1])
-            )
-
-    conn.commit()
-    cur.close()
-    conn.close()
+John,123456789
+Alice,987654321
+Max,0000000000
+Sofia,987654320
