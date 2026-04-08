@@ -4,7 +4,7 @@ conn = psycopg2.connect(
     host="localhost",
     database="defense_task",
     user="postgres",
-    password="..."
+    password="12345678"
 )
 
 
