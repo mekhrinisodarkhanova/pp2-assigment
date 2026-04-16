@@ -2,12 +2,12 @@ import pygame
 import datetime
 
 background = pygame.image.load("images/clock.png")
-right_hand = pygame.image.load("images/hand_right.png")   
-left_hand = pygame.image.load("images/hand_left.png")     
+right_hand = pygame.image.load("images/right_hand1.png")   
+left_hand = pygame.image.load("images/left_hand1.png")     
 
 background = pygame.transform.scale(background, (600, 600))
-right_hand = pygame.transform.scale(right_hand, (300, 300))
-left_hand = pygame.transform.scale(left_hand, (300, 300))
+# right_hand = pygame.transform.scale(right_hand, (100, 100))
+# left_hand = pygame.transform.scale(left_hand, (100, 100))
 
 
 def draw_clock(screen):
