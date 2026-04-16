@@ -4,8 +4,9 @@ from clock import draw_clock
 
 pygame.init()
 
-screen = pygame.display.set_mode((600, 600))
-pygame.display.set_caption("Mickey Clock")
+WIDTH, HEIGHT = 600, 600
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Mickey's Clock")
 
 clock = pygame.time.Clock()
 

@@ -1,14 +1,17 @@
 import pygame
 import datetime
 
-right_hand = pygame.image.load("images/right_hand.png")
-left_hand = pygame.image.load("images/left_hand.png")
+background = pygame.image.load("images/clock.png")
+right_hand = pygame.image.load("images/hand_right.png")   
+left_hand = pygame.image.load("images/hand_left.png")     
 
+background = pygame.transform.scale(background, (600, 600))
 right_hand = pygame.transform.scale(right_hand, (300, 300))
 left_hand = pygame.transform.scale(left_hand, (300, 300))
 
+
 def draw_clock(screen):
-    screen.fill((255, 255, 255))
+    screen.blit(background, (0, 0))
 
     now = datetime.datetime.now()
     minutes = now.minute
