@@ -7,7 +7,7 @@ WIDTH, HEIGHT = 700, 500
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Paint")
 
-background = pygame.image.load("images/resized_700x500.png")
+background = pygame.image.load("images/background3.png")
 background = pygame.transform.scale(background, (WIDTH, HEIGHT))
 
 rect_btn   = pygame.Rect(29, 51, 70, 70)
