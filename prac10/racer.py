@@ -64,7 +64,7 @@ while running:
     screen.blit(coin_img, coin_rect) 
 
     text = font.render(f"Coins: {score}", True, (255, 255, 255))
-    screen.blit(text, (250, 10))
+    screen.blit(text, (320, 10))
 
     pygame.display.flip()
     clock.tick(60)
