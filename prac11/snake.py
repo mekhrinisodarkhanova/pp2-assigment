@@ -24,7 +24,7 @@ food_timer = time.time()
 
 score = 0
 level = 1
-speed = 3
+speed = 5  
 
 clock = pygame.time.Clock()
 
@@ -37,13 +37,13 @@ while running:
             running = False
 
     keys = pygame.key.get_pressed()
-    if keys[pygame.K_UP]:
+    if keys[pygame.K_UP] and dy != 20:
         dx, dy = 0, -20
-    if keys[pygame.K_DOWN]:
+    elif keys[pygame.K_DOWN] and dy != -20:
         dx, dy = 0, 20
-    if keys[pygame.K_LEFT]:
+    elif keys[pygame.K_LEFT] and dx != 20:
         dx, dy = -20, 0
-    if keys[pygame.K_RIGHT]:
+    elif keys[pygame.K_RIGHT] and dx != -20:
         dx, dy = 20, 0
 
     head = (snake[0][0] + dx, snake[0][1] + dy)
@@ -54,18 +54,22 @@ while running:
         food = new_food()
         food_timer = time.time()
 
-        level = score // 5 + 1
-        speed = 5 + (level - 1) * 2 
-
+        if score % 5 == 0:
+            level += 1
+            speed += 2
     else:
         snake.pop()
+
+    if head in snake[1:]:
+        print("GAME OVER")
+        running = False
+
+    if head[0] < 0 or head[0] >= WIDTH or head[1] < 0 or head[1] >= HEIGHT:
+        running = False
 
     if time.time() - food_timer >= 7:
         food = new_food()
         food_timer = time.time()
-
-    if head[0] < 0 or head[0] >= WIDTH or head[1] < 0 or head[1] >= HEIGHT:
-        running = False
 
     for s in snake:
         pygame.draw.rect(screen, (0, 0, 255), (*s, 20, 20))
@@ -86,6 +90,6 @@ while running:
     screen.blit(level_text, (10, 70))
 
     pygame.display.update()
-    clock.tick(speed)  
+    clock.tick(speed)
 
 pygame.quit()

@@ -20,8 +20,15 @@ enemy_img = pygame.transform.scale(enemy_img, (50, 80))
 coin_img = pygame.transform.scale(coin_img, (30, 30))
 
 player = player_img.get_rect(center=(250, 500))
-enemy = enemy_img.get_rect(center=(random.randint(50, WIDTH-50), -100))
-coin = coin_img.get_rect(center=(random.randint(50, WIDTH-50), -50))
+
+def get_random_x(exclude_x=None):
+    while True:
+        x = random.randint(50, WIDTH - 50)
+        if exclude_x is None or x != exclude_x:
+            return x
+
+enemy = enemy_img.get_rect(center=(get_random_x(), -100))
+coin = coin_img.get_rect(center=(get_random_x(enemy.centerx), -50))
 
 enemy_speed = 3
 coin_weight = random.choice([1, 2, 3])
@@ -43,39 +50,31 @@ while running:
     if keys[pygame.K_RIGHT]:
         player.x += 6
 
-    if player.left < 0:
-        player.left = 0
-    if player.right > WIDTH:
-        player.right = WIDTH
+    player.left = max(player.left, 0)
+    player.right = min(player.right, WIDTH)
 
     enemy.y += enemy_speed
     if enemy.y > HEIGHT:
         enemy.y = -100
-
-        while True:
-            new_x = random.randint(50, WIDTH-50)
-            if abs(new_x - coin.centerx) > 60:
-                break
-        enemy.centerx = new_x
+        enemy.centerx = get_random_x(coin.centerx)
 
     coin.y += 4
     if coin.y > HEIGHT:
         coin.y = -50
         coin_weight = random.choice([1, 2, 3])
+        coin.centerx = get_random_x(enemy.centerx)
 
-        while True:
-            new_x = random.randint(50, WIDTH-50)
-            if abs(new_x - enemy.centerx) > 60:
-                break
-        coin.centerx = new_x
+    enemy_hitbox = enemy.inflate(-20, -20)
+    player_hitbox = player.inflate(-30, -30)
 
-    if player.colliderect(coin):
-        score += coin_weight
-        coin.y = -50
-
-    if player.colliderect(enemy):
+    if player_hitbox.colliderect(enemy_hitbox):
         print("GAME OVER")
         running = False
+
+    if player_hitbox.colliderect(coin):
+        score += coin_weight
+        coin.y = -50
+        coin.centerx = get_random_x(enemy.centerx)
 
     if score % 3 == 0 and score != 0:
         enemy_speed = 3 + score // 3
