@@ -1,0 +1,8 @@
+WIDTH, HEIGHT = 800, 600
+GRID = 20
+
+DB_NAME = "snake_db"
+DB_USER = "postgres"
+DB_PASSWORD = "12345678"
+DB_HOST = "localhost"
+DB_PORT = "5432"
